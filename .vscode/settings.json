@@ -9,7 +9,6 @@
     "linux": true,
     "macos": true,
     "pubspec.lock": true,
-    "README.md": true,
     "test": true,
     "web": true,
     "windows": true,

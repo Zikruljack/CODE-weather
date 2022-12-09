@@ -1,68 +1,36 @@
 import 'package:dio/dio.dart';
 
 class WeatherApi {
-  String baseUrl = 'http://api.openweathermap.org';
+  static const String baseUrl = 'http://api.openweathermap.org';
+  static const String apiPath = "/data/2.5/";
   late Dio dio;
   String? apiKey;
 
-  WeatherApi(this.baseUrl, {required Dio dioC}) {
-    dio = dioC;
-    dio
-      ..options.baseUrl = baseUrl
-      ..options.connectTimeout = 30000
-      ..options.receiveTimeout = 30000
-      ..httpClientAdapter
-      ..options.headers = {'Content-Type': 'application/json'};
+  Uri weather(String city) => _buildUri(
+        endpoint: "weather",
+        parametersBuilder: () => cityQueryParameters(city),
+      );
+
+  Uri forecast(String city) => _buildUri(
+        endpoint: "forecast",
+        parametersBuilder: () => cityQueryParameters(city),
+      );
+
+  Uri _buildUri({
+    required String endpoint,
+    required Map<String, dynamic> Function() parametersBuilder,
+  }) {
+    return Uri(
+      scheme: "https",
+      host: baseUrl,
+      path: "$apiPath$endpoint",
+      queryParameters: parametersBuilder(),
+    );
   }
 
-  Future<Response> getCityName(
-    String uri, {
-    Map<String, dynamic>? queryParameters,
-    Options? options,
-  }) async {
-    try {
-      var response = await dio.get(
-        uri,
-        queryParameters: queryParameters,
-        options: options,
-      );
-      return response;
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  Future<Response> getWeatherData(
-    String uri, {
-    Map<String, dynamic>? queryParameters,
-    Options? options,
-  }) async {
-    try {
-      var response = await dio.get(
-        uri,
-        queryParameters: queryParameters,
-        options: options,
-      );
-      return response;
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  Future<Response> getWeatherData(
-    String uri, {
-    Map<String, dynamic>? queryParameters,
-    Options? options,
-  }) async {
-    try {
-      var response = await dio.get(
-        uri,
-        queryParameters: queryParameters,
-        options: options,
-      );
-      return response;
-    } catch (e) {
-      rethrow;
-    }
-  }
+  Map<String, dynamic> cityQueryParameters(String city) => {
+        "q": city,
+        "appid": apiKey,
+        "units": "metric",
+      };
 }

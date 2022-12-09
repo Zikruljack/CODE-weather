@@ -7,10 +7,10 @@ abstract class WeatherEvent extends Equatable {
 
 class FetchWeather extends WeatherEvent {
   final String? cityName;
-  final String? longitude;
-  final String? latitude;
+  final double? longitude;
+  final double? latitude;
 
-  FetchWeather({this.cityName, this.longitude, this.latitude})
+  const FetchWeather({this.cityName, this.longitude, this.latitude})
       : assert(cityName != null || longitude != null || latitude != null);
 
   @override
