@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'package:code_weather/utils/const.dart';
 import 'package:code_weather/utils/converter.dart';
 import 'package:code_weather/utils/theme.dart';
@@ -7,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AppStateContainer extends StatefulWidget {
   final Widget child;
 
-  const AppStateContainer({required this.child});
+  const AppStateContainer({this.child});
 
   @override
   _AppStateContainerState createState() => _AppStateContainerState();
@@ -15,7 +16,7 @@ class AppStateContainer extends StatefulWidget {
   static _AppStateContainerState of(BuildContext context) {
     var widget =
         context.dependOnInheritedWidgetOfExactType<_InheritedStateContainer>();
-    return widget!.data;
+    return widget.data;
   }
 }
 
@@ -71,12 +72,12 @@ class _AppStateContainerState extends State<AppStateContainer> {
 }
 
 class _InheritedStateContainer extends InheritedWidget {
-  final _AppStateContainerState data;
+  _AppStateContainerState data;
 
-  const _InheritedStateContainer({
-    Key? key,
-    required this.data,
-    required Widget child,
+  _InheritedStateContainer({
+    Key key,
+    this.data,
+    Widget child,
   }) : super(key: key, child: child);
 
   @override

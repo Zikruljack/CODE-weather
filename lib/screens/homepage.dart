@@ -1,5 +1,5 @@
 import 'package:code_weather/bloc/weather_bloc.dart';
-import 'package:code_weather/main.dart';
+import 'package:code_weather/screens/widgets/weather.dart';
 import 'package:code_weather/utils/app_state_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -97,7 +97,7 @@ class _HomepageState extends State<Homepage> with TickerProviderStateMixin {
                 if (weatherState is WeatherLoaded) {
                   cityName = weatherState.weather.cityName!;
                   //TODO screens should add here
-                  return const Text('Testing purpose');
+                  return WeatherWidget(weather: weatherState.weather);
                 } else if (weatherState is WeatherError ||
                     weatherState is WeatherEmpty) {
                   String errorText = 'There was an error fetching weather data';
